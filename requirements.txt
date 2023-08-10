@@ -1,8 +1,9 @@
-yfinance
-bokeh
-numpy
+yfinance==0.2.27
+bokeh==2.4.3
+numpy==1.25.2
 pandas_stubs
-pandas
-streamlit
-pydaisi
-pytrendline
+pandas==1.5.3
+streamlit==1.25.0
+pytrendline==1.0.1
+DateTime==5.2
+colour==0.1.5

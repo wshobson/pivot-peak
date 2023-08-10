@@ -1,0 +1,8 @@
+yfinance
+bokeh
+numpy
+pandas_stubs
+pandas
+streamlit
+pydaisi
+pytrendline

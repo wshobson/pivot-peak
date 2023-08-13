@@ -1,14 +1,14 @@
 mkdir -p ~/.streamlit/
 
 echo "\
-[theme]\n\
-base=\"light\"\n\
-\n\
 [general]\n\
-email = \"wshobson@gmail.com\"\n\
+email = \"seth@major7apps.com\"\n\
 " > ~/.streamlit/credentials.toml
 
 echo "\
+[theme]\n\
+base=\"light\"\n\
+\n\
 [server]\n\
 headless = true\n\
 enableCORS=false\n\

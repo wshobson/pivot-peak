@@ -116,7 +116,7 @@ def st_ui():
     plot_graph(symbol, period, data)
 
     if st.sidebar.checkbox('View statistics'):
-        st.subheader('Statistics')
+        st.subheader('Statistics with respect to SPY')
         compute_stock_statistics(symbol, full_df)
 
 

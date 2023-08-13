@@ -234,7 +234,7 @@ def plot_graph_bokeh(results, symbol, period):
     # Plot
     candles_df = candlestick_data.df
 
-    site_title = f"{symbol} stock price for the last {period} days"
+    site_title = f"{symbol} trendlines for the last {period} days"
 
     # Establish plot dimensions
     y_padding = (candles_df['High'].max() / 200)

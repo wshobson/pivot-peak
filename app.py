@@ -5,8 +5,15 @@ import pandas as pd
 import pytrendline as ptl
 from datetime import date, timedelta
 from plot import plot_graph_bokeh
+import mplfinance as mpf
+import quantstats as qs
 
 warnings.filterwarnings("ignore")
+
+
+@st.cache_resource
+def get_ticker_data(symbol):
+    return yf.Ticker(symbol)
 
 
 def ticker_to_df(symbol, period, ticker_data):
@@ -32,7 +39,6 @@ def detect_trendlines(full_df):
 
     return ptl.detect(
         candlestick_data=candlestick_data,
-
         # Choose between BOTH, SUPPORT or RESISTANCE
         trend_type=ptl.TrendlineTypes.BOTH,
         # Specify if you require the first point of a trendline to be a pivot
@@ -58,22 +64,60 @@ def plot_trendlines(results, symbol, period):
     return plot_graph_bokeh(results, symbol, period)
 
 
+def plot_graph(symbol, period, data):
+    chart_df = ticker_to_df(symbol, period, data)
+    chart_df.index = pd.DatetimeIndex(chart_df['Date'])
+
+    sma_period_1 = st.sidebar.slider('SMA 1 period', min_value=5, max_value=500, value=50, step=1)
+    sma_period_2 = st.sidebar.slider('SMA 2 period', min_value=5, max_value=500, value=200, step=1)
+
+    fig, ax = mpf.plot(
+        chart_df,
+        title=f'{symbol}',
+        type='ohlc_bars',
+        show_nontrading=False,
+        mav=(int(sma_period_1), int(sma_period_2)),
+        volume=True,
+        figsize=(15, 10),
+
+        # Need this setting for Streamlit, see source code (line 778) here:
+        # https://github.com/matplotlib/mplfinance/blob/master/src/mplfinance/plotting.py
+        returnfig=True
+    )
+
+    st.pyplot(fig)
+
+
+def compute_stock_statistics(symbol, df):
+    df.index = pd.DatetimeIndex(df['Date'])
+    stock = qs.utils.download_returns(symbol, period=df.index)
+    bench = qs.utils.download_returns('SPY', period=df.index)
+
+    metrics = qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
+    st.table(metrics)
+
+
 def st_ui():
     st.set_page_config(layout="wide")
-    symbol = st.sidebar.text_input("Enter a symbol", "SPY").upper()
-    period = st.sidebar.slider("Time period for stock price plot", 10, 900, 365)
+    symbol = st.sidebar.text_input("Enter a symbol", "TSLA").upper()
+    period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
 
-    data = yf.Ticker(symbol)
+    data = get_ticker_data(symbol)
 
-    st.title(f"Stock price for {symbol} over the last {period} days")
+    st.title(f"{symbol} trendline detection")
+    st.sidebar.subheader('Settings')
 
     full_df = ticker_to_df(symbol, period, data)
     results = detect_trendlines(full_df)
     p = plot_trendlines(results, symbol, period)
-
     st.bokeh_chart(p, use_container_width=True)
 
-    st.dataframe(full_df)
+    st.subheader("Stock price data")
+    plot_graph(symbol, period, data)
+
+    if st.sidebar.checkbox('View statistics'):
+        st.subheader('Statistics')
+        compute_stock_statistics(symbol, full_df)
 
 
 if __name__ == "__main__":

@@ -11,7 +11,6 @@ import quantstats as qs
 warnings.filterwarnings("ignore")
 
 
-@st.cache_resource
 def get_ticker_data(symbol):
     return yf.Ticker(symbol)
 

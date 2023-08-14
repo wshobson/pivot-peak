@@ -92,13 +92,17 @@ def compute_stock_statistics(symbol, df):
     stock = qs.utils.download_returns(symbol, period=df.index)
     bench = qs.utils.download_returns('SPY', period=df.index)
 
-    metrics = qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
-    st.table(metrics)
+    return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
 def st_ui():
     st.set_page_config(layout="wide")
     symbol = st.sidebar.text_input("Enter a symbol", "TSLA").upper()
+
+    if symbol == "":
+        st.warning("Please enter a symbol")
+        st.stop()
+
     period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
 
     data = get_ticker_data(symbol)
@@ -107,6 +111,11 @@ def st_ui():
     st.sidebar.subheader('Settings')
 
     full_df = ticker_to_df(symbol, period, data)
+
+    if full_df.empty:
+        st.warning("No data found for the symbol")
+        st.stop()
+
     results = detect_trendlines(full_df)
     p = plot_trendlines(results, symbol, period)
     st.bokeh_chart(p, use_container_width=True)
@@ -116,7 +125,8 @@ def st_ui():
 
     if st.sidebar.checkbox('View statistics'):
         st.subheader('Statistics with respect to SPY')
-        compute_stock_statistics(symbol, full_df)
+        stats = compute_stock_statistics(symbol, full_df)
+        st.table(stats)
 
 
 if __name__ == "__main__":

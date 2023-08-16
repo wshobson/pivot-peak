@@ -108,7 +108,7 @@ def st_ui():
     data = get_ticker_data(symbol)
 
     st.title(f"{symbol} trendline detection")
-    st.sidebar.subheader('Settings')
+    st.sidebar.subheader('Options')
 
     full_df = ticker_to_df(symbol, period, data)
 
@@ -120,8 +120,8 @@ def st_ui():
     p = plot_trendlines(results, symbol, period)
     st.bokeh_chart(p, use_container_width=True)
 
-    st.subheader("Stock price data")
-    plot_graph(symbol, period, data)
+    # st.subheader("Stock price data")
+    # plot_graph(symbol, period, data)
 
     if st.sidebar.checkbox('View statistics'):
         st.subheader('Statistics with respect to SPY')

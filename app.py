@@ -43,9 +43,9 @@ def detect_trendlines(full_df):
         # Specify if you require the first point of a trendline to be a pivot
         first_pt_must_be_pivot=True,
         # Specify if you require the last point of the trendline to be a pivot
-        last_pt_must_be_pivot=False,
+        last_pt_must_be_pivot=True,
         # Specify if you require all trendline points to be pivots
-        all_pts_must_be_pivots=False,
+        all_pts_must_be_pivots=True,
         # Specify if you require one of the trendline points to be global max or min price
         trendline_must_include_global_maxmin_pt=False,
         # Specify minimum amount of points required for trendline detection (NOTE: must be at least two)

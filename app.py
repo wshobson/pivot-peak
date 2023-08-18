@@ -26,8 +26,8 @@ def ticker_to_df(symbol, period):
 
 
 def detect_trendlines(full_df):
-    first_must_be_pivot = st.sidebar.checkbox('First point must be pivot', value=True)
-    last_must_be_pivot = st.sidebar.checkbox('Last point must be pivot', value=True)
+    first_must_be_pivot = st.sidebar.checkbox('First point must be a pivot', value=True)
+    last_must_be_pivot = st.sidebar.checkbox('Last point must be a pivot', value=True)
     all_must_be_pivots = st.sidebar.checkbox('All points must be pivots', value=True)
     include_global_maxmin_pt = st.sidebar.checkbox('Include global max/min point', value=False)
 

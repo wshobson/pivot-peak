@@ -8,6 +8,7 @@ from datetime import date, timedelta
 from plot import plot_graph_bokeh
 import mplfinance as mpf
 import quantstats as qs
+from streamlit.components.v1 import html
 
 yf.pdr_override()
 
@@ -130,6 +131,26 @@ def st_ui():
         st.subheader('Statistics with respect to SPY')
         stats = compute_stock_statistics(symbol, full_df)
         st.table(stats)
+
+    button = """
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="fc4mDv55wG" data-color="#FFDD00" data-emoji="" data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+    """
+
+    with st.sidebar:
+        html(button, height=70, width=260)
+
+        st.markdown(
+            """
+            <style>
+                iframe[width="260"] {
+                    position: fixed;
+                    bottom: 0;
+                    margin-bottom: 40px;
+                }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
 if __name__ == "__main__":

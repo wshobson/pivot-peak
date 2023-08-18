@@ -63,8 +63,8 @@ def plot_trendlines(results, symbol, period):
     return plot_graph_bokeh(results, symbol, period)
 
 
-def plot_graph(symbol, period, data):
-    chart_df = ticker_to_df(symbol, period, data)
+def plot_graph(symbol, period):
+    chart_df = ticker_to_df(symbol, period)
     chart_df.index = pd.DatetimeIndex(chart_df['Date'])
 
     sma_period_1 = st.sidebar.slider('SMA 1 period', min_value=5, max_value=500, value=50, step=1)

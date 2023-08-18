@@ -2,13 +2,14 @@ import warnings
 import streamlit as st
 import yfinance as yf
 import pandas as pd
-from pandas_datareader import data as pdr
 import pytrendline as ptl
-from datetime import date, timedelta
-from plot import plot_graph_bokeh
 import mplfinance as mpf
 import quantstats as qs
+from datetime import date, timedelta
+from plot import plot_graph_bokeh
+from pandas_datareader import data as pdr
 from streamlit.components.v1 import html
+from PIL import Image
 
 yf.pdr_override()
 
@@ -101,9 +102,25 @@ def compute_stock_statistics(symbol, df):
     return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
+def sidebar_top_hack():
+    st.markdown("""
+      <style>
+        .css-9aoz2h.e1vs0wn30 {
+          margin-top: -75px;
+        }
+      </style>
+    """, unsafe_allow_html=True)
+
+
 def st_ui():
     st.set_page_config(layout="wide")
-    symbol = st.sidebar.text_input("Enter a symbol", "QQQ").upper()
+
+    sidebar_top_hack()
+
+    logo = Image.open('logo.png')
+    st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
+
+    symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()
 
     if symbol == "":
         st.warning("Please enter a symbol")
@@ -111,7 +128,7 @@ def st_ui():
 
     period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
 
-    st.title(f"{symbol} trendline detection")
+    st.title(f"{symbol} stock trendline detection")
     st.sidebar.subheader('Options')
 
     full_df = ticker_to_df(symbol, period)
@@ -132,11 +149,11 @@ def st_ui():
         stats = compute_stock_statistics(symbol, full_df)
         st.table(stats)
 
-    button = """
-    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="fc4mDv55wG" data-color="#FFDD00" data-emoji="" data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-    """
-
     with st.sidebar:
+        button = """
+        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="fc4mDv55wG" data-color="#FFDD00" data-emoji="" data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+        """
+
         html(button, height=70, width=260)
 
         st.markdown(
@@ -146,6 +163,13 @@ def st_ui():
                     position: fixed;
                     bottom: 0;
                     margin-bottom: 40px;
+                    -ms-zoom: 0.75;
+                    -moz-transform: scale(0.75);
+                    -moz-transform-origin: 0 0;
+                    -o-transform: scale(0.75);
+                    -o-transform-origin: 0 0;
+                    -webkit-transform: scale(0.75);
+                    -webkit-transform-origin: 0 0;
                 }
             </style>
             """,

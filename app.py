@@ -26,6 +26,11 @@ def ticker_to_df(symbol, period):
 
 
 def detect_trendlines(full_df):
+    first_must_be_pivot = st.sidebar.checkbox('First point must be pivot', value=True)
+    last_must_be_pivot = st.sidebar.checkbox('Last point must be pivot', value=True)
+    all_must_be_pivots = st.sidebar.checkbox('All points must be pivots', value=True)
+    include_global_maxmin_pt = st.sidebar.checkbox('Include global max/min point', value=False)
+
     candlestick_data = ptl.CandlestickData(
         df=full_df,
         time_interval="1d",  # choose between 1m,3m,5m,10m,15m,30m,1h,1d
@@ -41,13 +46,13 @@ def detect_trendlines(full_df):
         # Choose between BOTH, SUPPORT or RESISTANCE
         trend_type=ptl.TrendlineTypes.BOTH,
         # Specify if you require the first point of a trendline to be a pivot
-        first_pt_must_be_pivot=True,
+        first_pt_must_be_pivot=first_must_be_pivot,
         # Specify if you require the last point of the trendline to be a pivot
-        last_pt_must_be_pivot=True,
+        last_pt_must_be_pivot=last_must_be_pivot,
         # Specify if you require all trendline points to be pivots
-        all_pts_must_be_pivots=True,
+        all_pts_must_be_pivots=all_must_be_pivots,
         # Specify if you require one of the trendline points to be global max or min price
-        trendline_must_include_global_maxmin_pt=False,
+        trendline_must_include_global_maxmin_pt=include_global_maxmin_pt,
         # Specify minimum amount of points required for trendline detection (NOTE: must be at least two)
         min_points_required=3,
         # Specify if you want to ignore prices before some date

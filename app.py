@@ -2,22 +2,22 @@ import warnings
 import streamlit as st
 import yfinance as yf
 import pandas as pd
+from pandas_datareader import data as pdr
 import pytrendline as ptl
 from datetime import date, timedelta
 from plot import plot_graph_bokeh
 import mplfinance as mpf
 import quantstats as qs
 
+yf.pdr_override()
+
 warnings.filterwarnings("ignore")
 
 
-def get_ticker_data(symbol):
-    return yf.Ticker(symbol)
-
-
-def ticker_to_df(symbol, period, ticker_data):
+def ticker_to_df(symbol, period):
     today = date.today()
-    ticker_df = ticker_data.history(period='1d', start=today - timedelta(days=int(period)), end=today)
+    start_date = today - timedelta(days=int(period))
+    ticker_df = pdr.get_data_yahoo(symbol, start=start_date, end=today, threads=False)
 
     ticker_df["Symbol"] = symbol
     ticker_df["Date"] = ticker_df.index
@@ -105,12 +105,10 @@ def st_ui():
 
     period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
 
-    data = get_ticker_data(symbol)
-
     st.title(f"{symbol} trendline detection")
     st.sidebar.subheader('Options')
 
-    full_df = ticker_to_df(symbol, period, data)
+    full_df = ticker_to_df(symbol, period)
 
     if full_df.empty:
         st.warning("No data found for the symbol")

@@ -102,33 +102,21 @@ def compute_stock_statistics(symbol, df):
     return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
-def sidebar_top_hack():
-    st.markdown("""
-      <style>
-        .css-9aoz2h.e1vs0wn30 {
-          margin-top: -75px;
-        }
-      </style>
-    """, unsafe_allow_html=True)
-
-
 def st_ui():
     st.set_page_config(layout="wide")
-
-    sidebar_top_hack()
 
     logo = Image.open('logo.png')
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
     symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()
+    st.title(f"{symbol} stock trendline detection")
 
     if symbol == "":
-        st.warning("Please enter a symbol")
+        st.warning("Please enter a stock symbol")
         st.stop()
 
     period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
 
-    st.title(f"{symbol} stock trendline detection")
     st.sidebar.subheader('Options')
 
     full_df = ticker_to_df(symbol, period)
@@ -139,13 +127,16 @@ def st_ui():
 
     results = detect_trendlines(full_df)
     p = plot_trendlines(results, symbol, period)
+
     st.bokeh_chart(p, use_container_width=True)
 
     # st.subheader("Stock price data")
     # plot_graph(symbol, period, data)
 
     if st.sidebar.checkbox('View statistics'):
+        st.divider()
         st.subheader('Statistics with respect to SPY')
+
         stats = compute_stock_statistics(symbol, full_df)
         st.table(stats)
 

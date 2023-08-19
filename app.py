@@ -1,3 +1,5 @@
+import pathlib
+import shutil
 import warnings
 import streamlit as st
 import yfinance as yf
@@ -10,6 +12,7 @@ from plot import plot_graph_bokeh
 from pandas_datareader import data as pdr
 from streamlit.components.v1 import html
 from PIL import Image
+from bs4 import BeautifulSoup
 
 yf.pdr_override()
 
@@ -102,7 +105,35 @@ def compute_stock_statistics(symbol, df):
     return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
+def add_analytics_tag():
+    analytics_js = """
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZD84GBB37"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PZD84GBB37');
+    </script>
+    """
+    analytics_id = "G-PZD84GBB37"
+
+    # Identify html path of streamlit
+    index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
+    soup = BeautifulSoup(index_path.read_text(), features="html.parser")
+    if not soup.find(id=analytics_id):  # if id not found within html file
+        bck_index = index_path.with_suffix('.bck')
+        if bck_index.exists():
+            shutil.copy(bck_index, index_path)  # backup recovery
+        else:
+            shutil.copy(index_path, bck_index)  # save backup
+        markup = str(soup)
+        new_html = markup.replace('<head>', '<head>\n' + analytics_js)
+        index_path.write_text(new_html)
+
+
 def st_ui():
+    add_analytics_tag()
     st.set_page_config(layout="wide")
 
     logo = Image.open('logo.png')
@@ -166,19 +197,6 @@ def st_ui():
             """,
             unsafe_allow_html=True,
         )
-
-    analytics = """
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZD84GBB37"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-PZD84GBB37');
-    </script>
-    """
-
-    html(analytics, height=0, width=0)
 
 
 if __name__ == "__main__":

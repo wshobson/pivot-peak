@@ -131,7 +131,7 @@ def add_tag_manager():
 
 def st_ui():
     logo = Image.open('logo.png')
-    st.set_page_config(page_title="PivotPeak.AI", page_icon=logo, layout="wide")
+    st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
     add_tag_manager()
 
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")

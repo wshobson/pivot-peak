@@ -130,10 +130,10 @@ def add_tag_manager():
 
 
 def st_ui():
-    st.set_page_config(page_title="PivotPeak.AI", page_icon="logo.png", layout="wide")
+    logo = Image.open('logo.png')
+    st.set_page_config(page_title="PivotPeak.AI", page_icon=logo, layout="wide")
     add_tag_manager()
 
-    logo = Image.open('logo.png')
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
     symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()

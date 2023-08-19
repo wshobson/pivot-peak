@@ -182,12 +182,12 @@ def st_ui():
                     position: fixed;
                     bottom: 0;
                     margin-bottom: 40px;
-                    -ms-zoom: 0.75;
-                    -moz-transform: scale(0.75);
+                    -ms-zoom: 0.60;
+                    -moz-transform: scale(0.60);
                     -moz-transform-origin: 0 0;
-                    -o-transform: scale(0.75);
+                    -o-transform: scale(0.60);
                     -o-transform-origin: 0 0;
-                    -webkit-transform: scale(0.75);
+                    -webkit-transform: scale(0.60);
                     -webkit-transform-origin: 0 0;
                 }
             </style>

@@ -9,8 +9,11 @@ echo "\
 [theme]\n\
 base=\"light\"\n\
 \n\
+[client]\n\
+toolbarMode=\"minimal\"\n
+\n\
 [server]\n\
-headless = true\n\
+headless=true\n\
 enableCORS=false\n\
 port = $PORT\n\
 " > ~/.streamlit/config.toml

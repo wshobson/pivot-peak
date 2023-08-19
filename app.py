@@ -167,6 +167,19 @@ def st_ui():
             unsafe_allow_html=True,
         )
 
+    analytics = """
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZD84GBB37"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PZD84GBB37');
+    </script>
+    """
+
+    html(analytics, height=0, width=0)
+
 
 if __name__ == "__main__":
     st_ui()

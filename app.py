@@ -133,8 +133,8 @@ def add_analytics_tag():
 
 
 def st_ui():
+    st.set_page_config(page_title="PivotPeak.AI", page_icon="logo.png", layout="wide")
     add_analytics_tag()
-    st.set_page_config(layout="wide")
 
     logo = Image.open('logo.png')
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")

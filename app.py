@@ -105,36 +105,33 @@ def compute_stock_statistics(symbol, df):
     return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
-def add_analytics_tag():
-    analytics_js = """
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PZD84GBB37"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-PZD84GBB37');
-    </script>
+def add_tag_manager():
+    tag_manager_js = """
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PKR7945M');</script>
     """
-    analytics_id = "G-PZD84GBB37"
+    tag_manager_id = "GTM-PKR7945M"
 
     # Identify html path of streamlit
     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
     soup = BeautifulSoup(index_path.read_text(), features="html.parser")
-    if not soup.find(id=analytics_id):  # if id not found within html file
+    if not soup.find(id=tag_manager_id):  # if id not found within html file
         bck_index = index_path.with_suffix('.bck')
         if bck_index.exists():
             shutil.copy(bck_index, index_path)  # backup recovery
         else:
             shutil.copy(index_path, bck_index)  # save backup
         markup = str(soup)
-        new_html = markup.replace('<head>', '<head>\n' + analytics_js)
+        new_html = markup.replace('<head>', '<head>\n' + tag_manager_js)
         index_path.write_text(new_html)
 
 
 def st_ui():
     st.set_page_config(page_title="PivotPeak.AI", page_icon="logo.png", layout="wide")
-    add_analytics_tag()
+    add_tag_manager()
 
     logo = Image.open('logo.png')
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")

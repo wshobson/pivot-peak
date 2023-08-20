@@ -72,8 +72,8 @@ def get_chart_widget(
         "hide_side_toolbar": False,
         "allow_symbol_change": True,
         "studies": [
-            {"id": "MASimple@tv-basicstudies", "inputs": {"length": 50}},
-            {"id": "MASimple@tv-basicstudies", "inputs": {"length": 200}},
+            {"id": "MASimple@tv-basicstudies", "inputs": {"length": 10}},
+            {"id": "MASimple@tv-basicstudies", "inputs": {"length": 20}},
         ],
         "show_popup_button": False,
         "popup_width": "1000",
@@ -100,8 +100,8 @@ def get_fundamentals(
         theme: str = "light",
         display: str = "regular",
 ):
-    height = 1000
-    width = 1000
+    width = 400
+    height = 825
 
     header = '''
         <div class="tradingview-widget-container">

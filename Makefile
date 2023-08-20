@@ -1,5 +1,5 @@
 AWS_REGION ?= us-east-1 # its for pushing image to ecr
-ECR_ENDPOINT ?= ""
+ECR_ENDPOINT ?= "766753926833.dkr.ecr.us-east-1.amazonaws.com"
 IMAGE_NAME ?= "pivot-peak"
 TS=$(shell date +'%Y%m%d%H%M%S')
 TAG=${IMAGE_NAME}:v${TS}

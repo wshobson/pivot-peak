@@ -1,0 +1,24 @@
+# OS Files
+**/.DS_Store
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.platform/*
+
+# Git
+**/.git
+**/.gitignore
+
+# Env
+**/.env
+**/.aws
+**/.ssh
+Makefile
+Dockerfile
+docker-compose.yaml
+**/venv
+**/env
+README.md
+
+# Python
+__pycache__/

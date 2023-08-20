@@ -1,18 +1,34 @@
-AWS_REGION ?= us-east-1 # its for pushing image to ecr
-ECR_ENDPOINT ?= "766753926833.dkr.ecr.us-east-1.amazonaws.com"
+include .env
+
+AWS_REGION ?= us-east-1
+ECR_ENDPOINT ?= ""
+ECR_ENVIRONMENT ?= "Pivot-peak-env"
 IMAGE_NAME ?= "pivot-peak"
+CONTAINER_NAME ?= "pivot-peak"
 TS=$(shell date +'%Y%m%d%H%M%S')
 TAG=${IMAGE_NAME}:v${TS}
 
+run: ## Run streamlit app locally
+	streamlit run app.py
+
+docker-build: ## Build docker image for local development
+	docker build --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} --build-arg AWS_DEFAULT_REGION=${AWS_REGION} -t ${TAG} .
+
+docker-run: ## Run docker image locally
+	docker run --rm --name ${CONTAINER_NAME} -p 8501:8501 -t ${TAG}
+
 deploy: ## Rebuild docker image with a new tag and push to ECR
 	docker build --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} --build-arg AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} -t ${TAG} .
+
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
+
 	docker tag ${TAG} ${ECR_ENDPOINT}/${TAG}
+
 	docker push ${ECR_ENDPOINT}/${TAG}
-	$(shell sed -i 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yaml)
-	git add docker-compose.yaml
-	git commit -m "autocommit: image version updated"
-	eb deploy
+
+	$(shell sed -i '' 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yaml)
+
+	eb deploy ${ECR_ENVIRONMENT}
 .PHONY: rebuild
 
 

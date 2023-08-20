@@ -2,7 +2,7 @@ include .env
 
 AWS_REGION ?= us-east-1
 ECR_ENDPOINT ?= ""
-ECR_ENVIRONMENT ?= "Pivot-peak-env"
+ECR_ENVIRONMENT ?= "pivot-peak-prod"
 IMAGE_NAME ?= "pivot-peak"
 CONTAINER_NAME ?= "pivot-peak"
 TS=$(shell date +'%Y%m%d%H%M%S')

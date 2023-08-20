@@ -1,4 +1,4 @@
-AWS_REGION ?= us-east-1a # its for pushing image to ecr
+AWS_REGION ?= us-east-1 # its for pushing image to ecr
 ECR_ENDPOINT ?= ""
 IMAGE_NAME ?= "pivot-peak"
 TS=$(shell date +'%Y%m%d%H%M%S')

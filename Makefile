@@ -18,7 +18,7 @@ docker-run: ## Run docker image locally
 	docker run --rm --name ${CONTAINER_NAME} -p 8501:8501 -t ${TAG}
 
 deploy: ## Rebuild docker image with a new tag and push to ECR
-	docker build --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} --build-arg AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} -t ${TAG} .
+	docker build --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} --build-arg AWS_DEFAULT_REGION=${AWS_REGION} -t ${TAG} .
 
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
 

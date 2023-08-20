@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   streamlit:
-    image: 766753926833.dkr.ecr.us-east-1.amazonaws.com/pivot-peak:v20230820090808
+    image: 766753926833.dkr.ecr.us-east-1.amazonaws.com/pivot-peak:v20230820094726
     ports:
       - "80:8501"
     env_file:

@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY . /app
 
-RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN /usr/local/bin/python -m pip install --upgrade pip wheel setuptools
 RUN pip3 install -r requirements.txt
 
 ARG AWS_ACCESS_KEY_ID

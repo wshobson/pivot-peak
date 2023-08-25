@@ -1,12 +1,12 @@
 include .env
 
-AWS_REGION ?= us-east-1
+AWS_REGION ?= ""
 ECR_ENDPOINT ?= ""
 ECR_ENVIRONMENT ?= "pivot-peak-prod"
 IMAGE_NAME ?= "pivot-peak"
+IMAGE_VERSION ?= "latest"
 CONTAINER_NAME ?= "pivot-peak"
-TS=$(shell date +'%Y%m%d%H%M%S')
-TAG=${IMAGE_NAME}:v${TS}
+TAG=${IMAGE_NAME}:${IMAGE_VERSION}
 
 run: ## Run streamlit app locally
 	streamlit run app.py
@@ -26,10 +26,9 @@ deploy: ## Rebuild docker image with a new tag and push to ECR
 
 	docker push ${ECR_ENDPOINT}/${TAG}
 
-	$(shell sed -i '' 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yaml)
+	$(shell sed -i '' 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yml)
 
 	eb deploy ${ECR_ENVIRONMENT}
-.PHONY: rebuild
 
 
 help: ## Show this help
@@ -37,5 +36,4 @@ help: ## Show this help
 	@echo "\nSpecify a command. The choices are:\n"
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[0;36m%-12s\033[m %s\n", $$1, $$2}'
 	@echo ""
-
 .PHONY: help

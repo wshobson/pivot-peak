@@ -26,7 +26,7 @@ deploy: ## Rebuild docker image with a new tag and push to ECR
 
 	docker push ${ECR_ENDPOINT}/${TAG}
 
-	$(shell sed -i '' 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yml)
+	#$(shell sed -i '' 's/\(^ *image: *\).*/\1${ECR_ENDPOINT}\/${TAG}/' docker-compose.yml)
 
 	eb deploy ${ECR_ENVIRONMENT}
 

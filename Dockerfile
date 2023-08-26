@@ -24,4 +24,4 @@ ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
 EXPOSE 8501
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableCORS=False"]

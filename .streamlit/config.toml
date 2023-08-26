@@ -7,3 +7,6 @@ enableCORS=false
 
 [theme]
 base="light"
+
+[global]
+metrics=true

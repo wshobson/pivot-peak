@@ -197,32 +197,8 @@ def st_ui():
 
     html(
         """
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'd4c9ebb56afe00c1d135a1878f05a3cf',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-            document.write('<scr' + 'ipt type="text/javascript" src="//www.profitablecreativeformat.com/d4c9ebb56afe00c1d135a1878f05a3cf/invoke.js"></scr' + 'ipt>');
-        </script>
-        """,
-        height=90,
-        width=728
-    )
-
-    st.markdown(
+        <script type='text/javascript' src='//pl20659182.highcpmrevenuegate.com/b4/f5/df/b4f5df67ebd799ccfe00c6feb8788044.js'></script>
         """
-        <style>
-            iframe[width="728"] {
-                display: block;
-                margin: 0 auto;
-                margin-top: 30px;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
     )
 
 

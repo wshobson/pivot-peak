@@ -187,13 +187,43 @@ def st_ui():
                     -moz-transform-origin: 0 0;
                     -o-transform: scale(0.60);
                     -o-transform-origin: 0 0;
-                    -webkit-transform: scale(0.60);
+                    -webkit-transform: scale(0.60); 
                     -webkit-transform-origin: 0 0;
                 }
             </style>
             """,
             unsafe_allow_html=True,
         )
+
+    html(
+        """
+        <script type="text/javascript">
+            atOptions = {
+                'key' : 'd4c9ebb56afe00c1d135a1878f05a3cf',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="//www.profitablecreativeformat.com/d4c9ebb56afe00c1d135a1878f05a3cf/invoke.js"></scr' + 'ipt>');
+        </script>
+        """,
+        height=90,
+        width=728
+    )
+
+    st.markdown(
+        """
+        <style>
+            iframe[width="728"] {
+                display: block;
+                margin: 0 auto;
+                margin-top: 30px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 if __name__ == "__main__":

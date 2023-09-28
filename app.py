@@ -195,11 +195,11 @@ def st_ui():
             unsafe_allow_html=True,
         )
 
-    html(
-        """
-        <script type='text/javascript' src='//pl20659182.highcpmrevenuegate.com/b4/f5/df/b4f5df67ebd799ccfe00c6feb8788044.js'></script>
-        """
-    )
+    # html(
+    #     """
+    #     <script type='text/javascript' src='//pl20659182.highcpmrevenuegate.com/b4/f5/df/b4f5df67ebd799ccfe00c6feb8788044.js'></script>
+    #     """
+    # )
 
 
 if __name__ == "__main__":

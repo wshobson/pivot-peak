@@ -130,13 +130,19 @@ def compute_stock_statistics(symbol, df):
 
 
 def st_ui():
+    params = st.experimental_get_query_params()
+
     logo = Image.open('logo.png')
     st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
     # add_tag_manager()
 
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
-    symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()
+    if "symbol" in params:
+        symbol = params["symbol"][0].upper()
+    else:
+        symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()
+
     st.title(f"{symbol} stock trendline detection")
 
     if symbol == "":

@@ -1,27 +1,20 @@
-FROM python:3.9-slim
+FROM python:3.10
 
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
     curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    libsoup2.4-dev \
+    libjavascriptcoregtk-4.0-dev \
+    libgtk-3-dev \
+    libwebkit2gtk-4.0-dev
 
 COPY . /app
 
-RUN /usr/local/bin/python -m pip install --upgrade pip wheel setuptools
-RUN pip3 install -r requirements.txt
-
-ARG AWS_ACCESS_KEY_ID
-ARG AWS_SECRET_ACCESS_KEY
-ARG AWS_DEFAULT_REGION=us-east-1
-
-ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+RUN pip install --upgrade pip wheel setuptools
+RUN pip install --no-cache-dir -r  requirements.txt
 
 EXPOSE 8501
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableCORS=False"]
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

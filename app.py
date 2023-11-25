@@ -141,7 +141,7 @@ def st_ui():
     if "symbol" in params:
         symbol = params["symbol"][0].upper()
     else:
-        symbol = st.sidebar.text_input("Enter a stock symbol", "QQQ").upper()
+        symbol = st.sidebar.text_input("Enter a stock symbol", "MSFT").upper()
 
     st.title(f"{symbol} stock trendline detection")
 

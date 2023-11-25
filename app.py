@@ -149,7 +149,7 @@ def st_ui():
         st.warning("Please enter a stock symbol")
         st.stop()
 
-    period = st.sidebar.slider("Time period for stock price", 10, 900, 365)
+    period = st.sidebar.slider("Time period for stock price", 10, 730, 120)
 
     st.sidebar.subheader('Options')
 

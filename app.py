@@ -1,18 +1,17 @@
-import pathlib
-import shutil
 import warnings
-import streamlit as st
-import yfinance as yf
+from datetime import date, timedelta
+
+import mplfinance as mpf
 import pandas as pd
 import pytrendline as ptl
-import mplfinance as mpf
 import quantstats as qs
-from datetime import date, timedelta
-from plot import plot_graph_bokeh
+import streamlit as st
+import yfinance as yf
+from PIL import Image
 from pandas_datareader import data as pdr
 from streamlit.components.v1 import html
-from PIL import Image
-from bs4 import BeautifulSoup
+
+from plot import plot_graph_bokeh
 
 yf.pdr_override()
 

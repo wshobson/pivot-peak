@@ -104,36 +104,11 @@ def compute_stock_statistics(symbol, df):
     return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
 
 
-# def add_tag_manager():
-#     tag_manager_js = """
-#     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-#     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-#     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-#     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-#     })(window,document,'script','dataLayer','GTM-PKR7945M');</script>
-#     """
-#     tag_manager_id = "GTM-PKR7945M"
-
-#     # Identify html path of streamlit
-#     index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
-#     soup = BeautifulSoup(index_path.read_text(), features="html.parser")
-#     if not soup.find(id=tag_manager_id):  # if id not found within html file
-#         bck_index = index_path.with_suffix('.bck')
-#         if bck_index.exists():
-#             shutil.copy(bck_index, index_path)  # backup recovery
-#         else:
-#             shutil.copy(index_path, bck_index)  # save backup
-#         markup = str(soup)
-#         new_html = markup.replace('<head>', '<head>\n' + tag_manager_js)
-#         index_path.write_text(new_html)
-
-
 def st_ui():
     params = st.experimental_get_query_params()
 
     logo = Image.open('logo.png')
     st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
-    # add_tag_manager()
 
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
@@ -162,9 +137,6 @@ def st_ui():
     p = plot_trendlines(results, symbol, period)
 
     st.bokeh_chart(p, use_container_width=True)
-
-    # st.subheader("Stock price data")
-    # plot_graph(symbol, period, data)
 
     if st.sidebar.checkbox('View statistics'):
         st.divider()

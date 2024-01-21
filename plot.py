@@ -121,29 +121,6 @@ class TrendlineFigure:
             line_dash=self.get_trendline_plot_line_style()
         )
 
-        # Draw plot score label
-        # if self.is_best_from_duplicate_group:
-        #     label_text = "Score " + str(self.id) + " = " + str(round(self.score, 2))
-        #     if self.is_breakout: label_text += " (breakout at {})".format(self.breakout_index)
-        #
-        #     label_x_pos = last_date_index + 2
-        #     label_y_pos = tl_y_at_last_date + (2 * m)
-        #
-        #     label = Label(x=label_x_pos, y=label_y_pos,
-        #                   text=label_text, render_mode='css',
-        #                   border_line_color=color, border_line_alpha=0.8,
-        #                   background_fill_color='white', background_fill_alpha=1.0)
-        #     p.segment(
-        #         x0=[last_date_index],
-        #         y0=[tl_y_at_last_date],
-        #         x1=[last_date_index + 2],
-        #         y1=[tl_y_at_last_date + (m * 2)],
-        #         color=color,
-        #         line_width=self.get_trendline_plot_line_width(),
-        #         line_dash=self.get_trendline_plot_line_style()
-        #     )
-        #     p.add_layout(label)
-
         # Mark points that make up trendline
         p.square(pt_set_x, tl_vals_at_x, size=12, color=color, alpha=0.5)
 
@@ -168,7 +145,6 @@ class TrendlineFigure:
             return "Unknown"
 
     def get_trendline_plot_color(self):
-        # If we have set an override for plot color, use this
         if "color" in self.plotting_prop_overrides:
             return self.plotting_prop_overrides["color"]
 
@@ -182,7 +158,6 @@ class TrendlineFigure:
             c = orange
 
         if self.is_breakout:
-            # Set color to grey if we find that line has expired
             c = grey
 
         return c.hex_l

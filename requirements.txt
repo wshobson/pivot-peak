@@ -30,7 +30,7 @@ GitPython==3.1.41
 h11==0.14.0
 html5lib==1.1
 httpcore==1.0.2
-httpx==0.25.2
+httpx==0.26.0
 idna==3.6
 importlib-metadata==6.8.0
 importlib-resources==6.1.1

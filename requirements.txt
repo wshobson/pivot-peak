@@ -104,7 +104,7 @@ traitlets==5.13.0
 trio==0.23.1
 types-pytz==2023.3.1.1
 typing_extensions==4.8.0
-tzdata==2023.3
+tzdata==2023.4
 tzlocal==5.2
 urllib3==2.1.0
 validators==0.22.0

@@ -59,7 +59,7 @@ parso==0.8.3
 peewee==3.17.0
 pexpect==4.9.0
 pickleshare==0.7.5
-Pillow==10.1.0
+Pillow==10.2.0
 prompt-toolkit==3.0.41
 protobuf==4.25.1
 ptyprocess==0.7.0

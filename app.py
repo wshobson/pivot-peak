@@ -6,27 +6,34 @@ import pandas as pd
 import pytrendline as ptl
 import quantstats as qs
 import streamlit as st
-import yfinance as yf
 from PIL import Image
-from pandas_datareader import data as pdr
 from streamlit.components.v1 import html
+from openbb import obb
 
 from plot import plot_graph_bokeh
-
-yf.pdr_override()
 
 warnings.filterwarnings("ignore")
 
 
 def ticker_to_df(symbol, period):
-    today = date.today()
-    start_date = today - timedelta(days=int(period))
-    ticker_df = pdr.get_data_yahoo(symbol, start=start_date, end=today, threads=False)
+    try:
+        today = date.today()
+        start = today - timedelta(days=int(period))
+        start_date = start.strftime("%Y-%m-%d")
+        end_date = today.strftime("%Y-%m-%d")
+        ticker_df = obb.equity.price.historical(symbol, start_date=start_date, end_date=end_date, provider="fmp").to_df()
 
-    ticker_df["Symbol"] = symbol
-    ticker_df["Date"] = ticker_df.index
+        ticker_df["Open"] = ticker_df["open"]
+        ticker_df["High"] = ticker_df["high"]
+        ticker_df["Low"] = ticker_df["low"]
+        ticker_df["Close"] = ticker_df["close"]
+        ticker_df["Symbol"] = symbol
+        ticker_df["Date"] = ticker_df.index
 
-    return pd.concat([pd.DataFrame(), ticker_df], ignore_index=True)
+        return pd.concat([pd.DataFrame(), ticker_df], ignore_index=True)
+    except Exception as e:
+        print(f"Error searching {symbol} occured: {e}")
+        return pd.DataFrame()
 
 
 def detect_trendlines(full_df):
@@ -105,10 +112,10 @@ def compute_stock_statistics(symbol, df):
 
 
 def st_ui():
-    params = st.experimental_get_query_params()
-
-    logo = Image.open('logo.png')
     st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
+
+    params = st.query_params.to_dict()
+    logo = Image.open('logo.png')
 
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 

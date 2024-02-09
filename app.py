@@ -1,3 +1,4 @@
+import os
 import warnings
 from datetime import date, timedelta
 
@@ -14,6 +15,10 @@ from plot import plot_graph_bokeh
 
 warnings.filterwarnings("ignore")
 
+OPENBB_API_TOKEN = os.environ.get("OPENBB_API_TOKEN")
+
+obb.account.login(pat=OPENBB_API_TOKEN)
+
 
 def ticker_to_df(symbol, period):
     try:
@@ -21,7 +26,7 @@ def ticker_to_df(symbol, period):
         start = today - timedelta(days=int(period))
         start_date = start.strftime("%Y-%m-%d")
         end_date = today.strftime("%Y-%m-%d")
-        ticker_df = obb.equity.price.historical(symbol, start_date=start_date, end_date=end_date, provider="fmp").to_df()
+        ticker_df = obb.equity.price.historical(symbol, start_date=start_date, end_date=end_date, provider="tiingo").to_df()
 
         ticker_df["Open"] = ticker_df["open"]
         ticker_df["High"] = ticker_df["high"]

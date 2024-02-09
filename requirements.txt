@@ -120,7 +120,7 @@ python-dotenv==1.0.0
 python-jose==3.3.0
 python-multipart==0.0.6
 pytrendline==1.0.1
-pytz==2023.3.post1
+pytz==2024.1
 pytz-deprecation-shim==0.1.0.post0
 PyYAML==6.0.1
 QuantStats==0.0.62

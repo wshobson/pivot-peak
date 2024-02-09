@@ -15,9 +15,8 @@ from plot import plot_graph_bokeh
 
 warnings.filterwarnings("ignore")
 
-OPENBB_API_TOKEN = os.environ.get("OPENBB_API_TOKEN")
-
-obb.account.login(pat=OPENBB_API_TOKEN)
+obb.account.login(pat=st.secrets["OPENBB_API_TOKEN"])
+os.environ["TIINGO_API_KEY"] = st.secrets["TIINGO_API_KEY"]
 
 
 def ticker_to_df(symbol, period):

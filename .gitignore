@@ -190,3 +190,5 @@ fabric.properties
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+.streamlit/secrets.toml

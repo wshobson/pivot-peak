@@ -1,20 +1,20 @@
 def get_info_widget(
-        ticker: str = "AAPL",
-        theme: str = "light",
+    ticker: str = "AAPL",
+    theme: str = "light",
 ):
     width = 1000
     height = 200
 
-    header = '''
+    header = """
         <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
-    '''
+    """
 
-    footer = '''
+    footer = """
         </script>
         </div>
-    '''
+    """
 
     widget = {
         "symbol": ticker,
@@ -22,14 +22,11 @@ def get_info_widget(
         "width": width,
         "locale": "en",
         "colorTheme": theme,
-        "isTransparent": False
+        "isTransparent": False,
     }
 
     widget = (
-        str(widget)
-        .replace('True', 'true')
-        .replace('False', 'false')
-        .replace('\'', '"')
+        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
     )
 
     return (
@@ -40,25 +37,25 @@ def get_info_widget(
 
 
 def get_chart_widget(
-        ticker: str = "AAPL",
-        theme: str = "dark",
+    ticker: str = "AAPL",
+    theme: str = "dark",
 ):
     height = 600
     width = 1000
 
-    header = '''
+    header = """
       <div class="tradingview-widget-container">
       <div id="technical-analysis-chart-demo"></div>
       <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
       <script type="text/javascript">
       new TradingView.widget(
-    '''
+    """
 
-    footer = '''
+    footer = """
       );
       </script>
       </div>
-    '''
+    """
 
     widget = {
         "width": width,
@@ -78,14 +75,11 @@ def get_chart_widget(
         "show_popup_button": False,
         "popup_width": "1000",
         "popup_height": "650",
-        "locale": "en"
+        "locale": "en",
     }
 
     widget = (
-        str(widget)
-        .replace('True', 'true')
-        .replace('False', 'false')
-        .replace('\'', '"')
+        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
     )
 
     return (
@@ -96,23 +90,23 @@ def get_chart_widget(
 
 
 def get_fundamentals(
-        ticker: str = "AAPL",
-        theme: str = "light",
-        display: str = "regular",
+    ticker: str = "AAPL",
+    theme: str = "light",
+    display: str = "regular",
 ):
     width = 400
     height = 825
 
-    header = '''
+    header = """
         <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
-    '''
+    """
 
-    footer = '''
+    footer = """
         </script>
         </div>
-    '''
+    """
 
     widget = {
         "colorTheme": theme,
@@ -120,18 +114,15 @@ def get_fundamentals(
         "width": width,
         "height": height,
         "symbol": ticker,
-        "locale": "en"
+        "locale": "en",
     }
 
     widget = (
-        str(widget)
-        .replace('True', 'true')
-        .replace('False', 'false')
-        .replace('\'', '"')
+        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
     )
 
     return (
-        header + '\n' + widget + '\n' + footer,
+        header + "\n" + widget + "\n" + footer,
         width,
         height,
     )

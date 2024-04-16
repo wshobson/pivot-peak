@@ -1,4 +1,3 @@
-import os
 import warnings
 from datetime import date, timedelta
 
@@ -15,8 +14,8 @@ from plot import plot_graph_bokeh
 
 warnings.filterwarnings("ignore")
 
-obb.account.login(pat=st.secrets["OPENBB_API_TOKEN"])
-os.environ["TIINGO_API_KEY"] = st.secrets["TIINGO_API_KEY"]
+obb.account.login(pat=st.secrets["OPENBB_TOKEN"])
+obb.user.credentials.tiingo_token = st.secrets["TIINGO_API_KEY"]
 
 
 def ticker_to_df(symbol, period):
@@ -25,14 +24,16 @@ def ticker_to_df(symbol, period):
         start = today - timedelta(days=int(period))
         start_date = start.strftime("%Y-%m-%d")
         end_date = today.strftime("%Y-%m-%d")
-        ticker_df = obb.equity.price.historical(symbol, start_date=start_date, end_date=end_date, provider="tiingo").to_df()
+        ticker_df = obb.equity.price.historical(
+            symbol, start_date=start_date, end_date=end_date, provider="tiingo"
+        ).to_df()
 
         ticker_df["Open"] = ticker_df["open"]
         ticker_df["High"] = ticker_df["high"]
         ticker_df["Low"] = ticker_df["low"]
         ticker_df["Close"] = ticker_df["close"]
         ticker_df["Symbol"] = symbol
-        ticker_df["Date"] = ticker_df.index
+        ticker_df["Date"] = pd.to_datetime(ticker_df.index)
 
         return pd.concat([pd.DataFrame(), ticker_df], ignore_index=True)
     except Exception as e:
@@ -41,10 +42,12 @@ def ticker_to_df(symbol, period):
 
 
 def detect_trendlines(full_df):
-    first_must_be_pivot = st.sidebar.checkbox('First point must be a pivot', value=True)
-    last_must_be_pivot = st.sidebar.checkbox('Last point must be a pivot', value=True)
-    all_must_be_pivots = st.sidebar.checkbox('All points must be pivots', value=True)
-    include_global_maxmin_pt = st.sidebar.checkbox('Include global max/min point', value=False)
+    first_must_be_pivot = st.sidebar.checkbox("First point must be a pivot", value=True)
+    last_must_be_pivot = st.sidebar.checkbox("Last point must be a pivot", value=True)
+    all_must_be_pivots = st.sidebar.checkbox("All points must be pivots", value=True)
+    include_global_maxmin_pt = st.sidebar.checkbox(
+        "Include global max/min point", value=False
+    )
 
     candlestick_data = ptl.CandlestickData(
         df=full_df,
@@ -53,7 +56,7 @@ def detect_trendlines(full_df):
         high_col="High",  # name of the column containing candle "High" price
         low_col="Low",  # name of the column containing candle "Low" price
         close_col="Close",  # name of the column containing candle "Close" price
-        datetime_col="Date"  # name of the column containing candle datetime price (use none if datetime is in index)
+        datetime_col="Date",  # name of the column containing candle datetime price (use none if datetime is in index)
     )
 
     return ptl.detect(
@@ -75,7 +78,7 @@ def detect_trendlines(full_df):
         # Specify if you want to ignore 'breakout' lines. That is, lines that intersect a candle
         ignore_breakouts=True,
         # Specify and override to default config (See docs on how)
-        config={}
+        config={},
     )
 
 
@@ -85,41 +88,44 @@ def plot_trendlines(results, symbol, period):
 
 def plot_graph(symbol, period):
     chart_df = ticker_to_df(symbol, period)
-    chart_df.index = pd.DatetimeIndex(chart_df['Date'])
+    chart_df.index = pd.DatetimeIndex(chart_df["Date"])
 
-    sma_period_1 = st.sidebar.slider('SMA 1 period', min_value=5, max_value=500, value=50, step=1)
-    sma_period_2 = st.sidebar.slider('SMA 2 period', min_value=5, max_value=500, value=200, step=1)
+    sma_period_1 = st.sidebar.slider(
+        "SMA 1 period", min_value=5, max_value=500, value=50, step=1
+    )
+    sma_period_2 = st.sidebar.slider(
+        "SMA 2 period", min_value=5, max_value=500, value=200, step=1
+    )
 
     fig, ax = mpf.plot(
         chart_df,
-        title=f'{symbol}',
-        type='ohlc_bars',
+        title=f"{symbol}",
+        type="ohlc_bars",
         show_nontrading=False,
         mav=(int(sma_period_1), int(sma_period_2)),
         volume=True,
         figsize=(15, 10),
-
         # Need this setting for Streamlit, see source code (line 778) here:
         # https://github.com/matplotlib/mplfinance/blob/master/src/mplfinance/plotting.py
-        returnfig=True
+        returnfig=True,
     )
 
     st.pyplot(fig)
 
 
 def compute_stock_statistics(symbol, df):
-    df.index = pd.DatetimeIndex(df['Date'])
+    df.index = pd.DatetimeIndex(df["Date"])
     stock = qs.utils.download_returns(symbol, period=df.index)
-    bench = qs.utils.download_returns('SPY', period=df.index)
+    bench = qs.utils.download_returns("SPY", period=df.index)
 
-    return qs.reports.metrics(stock, mode='full', benchmark=bench, display=False)
+    return qs.reports.metrics(stock, mode="full", benchmark=bench, display=False)
 
 
 def st_ui():
     st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
 
     params = st.query_params.to_dict()
-    logo = Image.open('logo.png')
+    logo = Image.open("logo.png")
 
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
@@ -136,7 +142,7 @@ def st_ui():
 
     period = st.sidebar.slider("Time period for stock price", 10, 730, 252)
 
-    st.sidebar.subheader('Options')
+    st.sidebar.subheader("Options")
 
     full_df = ticker_to_df(symbol, period)
 
@@ -149,9 +155,9 @@ def st_ui():
 
     st.bokeh_chart(p, use_container_width=True)
 
-    if st.sidebar.checkbox('View statistics'):
+    if st.sidebar.checkbox("View statistics"):
         st.divider()
-        st.subheader('Statistics with respect to SPY')
+        st.subheader("Statistics with respect to SPY")
 
         stats = compute_stock_statistics(symbol, full_df)
         st.table(stats)

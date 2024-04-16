@@ -1,7 +1,6 @@
 import warnings
 from datetime import date, timedelta
 
-import mplfinance as mpf
 import pandas as pd
 import pytrendline as ptl
 import quantstats as qs
@@ -34,7 +33,7 @@ def ticker_to_df(symbol, period):
         ticker_df["Low"] = ticker_df["low"]
         ticker_df["Close"] = ticker_df["close"]
         ticker_df["Symbol"] = symbol
-        ticker_df["Date"] = pd.to_datetime(ticker_df.index)
+        ticker_df["Date"] = ticker_df["date"]
 
         return pd.concat([pd.DataFrame(), ticker_df], ignore_index=True)
     except Exception as e:
@@ -87,33 +86,6 @@ def plot_trendlines(results, symbol, period):
     return plot_graph_bokeh(results, symbol, period)
 
 
-def plot_graph(symbol, period):
-    chart_df = ticker_to_df(symbol, period)
-    chart_df.index = pd.DatetimeIndex(chart_df["Date"])
-
-    sma_period_1 = st.sidebar.slider(
-        "SMA 1 period", min_value=5, max_value=500, value=50, step=1
-    )
-    sma_period_2 = st.sidebar.slider(
-        "SMA 2 period", min_value=5, max_value=500, value=200, step=1
-    )
-
-    fig, ax = mpf.plot(
-        chart_df,
-        title=f"{symbol}",
-        type="ohlc_bars",
-        show_nontrading=False,
-        mav=(int(sma_period_1), int(sma_period_2)),
-        volume=True,
-        figsize=(15, 10),
-        # Need this setting for Streamlit, see source code (line 778) here:
-        # https://github.com/matplotlib/mplfinance/blob/master/src/mplfinance/plotting.py
-        returnfig=True,
-    )
-
-    st.pyplot(fig)
-
-
 def compute_stock_statistics(symbol, df):
     df.index = pd.DatetimeIndex(df["Date"])
     stock = qs.utils.download_returns(symbol, period=df.index)
@@ -125,15 +97,16 @@ def compute_stock_statistics(symbol, df):
 def st_ui():
     st.set_page_config(page_title="PivotPeak.AI", page_icon="📈", layout="wide")
 
-    params = st.query_params.to_dict()
     logo = Image.open("logo.png")
-
     st.sidebar.image(logo, width=90, caption="PivotPeak.AI")
 
-    if "symbol" in params:
-        symbol = params["symbol"][0].upper()
-    else:
-        symbol = st.sidebar.text_input("Enter a stock symbol", "MSFT").upper()
+    params = st.query_params.get_all("symbol")
+
+    default_symbol = "MSFT"
+    if len(params) > 0:
+        default_symbol = params[0].upper()
+
+    symbol = st.sidebar.text_input("Enter a stock symbol", default_symbol).upper()
 
     st.title(f"{symbol} stock trendline detection")
 

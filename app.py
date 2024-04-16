@@ -6,16 +6,16 @@ import pandas as pd
 import pytrendline as ptl
 import quantstats as qs
 import streamlit as st
+import pandas_datareader as pdr
+
 from PIL import Image
 from streamlit.components.v1 import html
-from openbb import obb
 
 from plot import plot_graph_bokeh
 
 warnings.filterwarnings("ignore")
 
-obb.account.login(pat=st.secrets["OPENBB_TOKEN"])
-obb.user.credentials.tiingo_token = st.secrets["TIINGO_API_KEY"]
+TIINGO_TOKEN = st.secrets["TIINGO_API_KEY"]
 
 
 def ticker_to_df(symbol, period):
@@ -24,9 +24,10 @@ def ticker_to_df(symbol, period):
         start = today - timedelta(days=int(period))
         start_date = start.strftime("%Y-%m-%d")
         end_date = today.strftime("%Y-%m-%d")
-        ticker_df = obb.equity.price.historical(
-            symbol, start_date=start_date, end_date=end_date, provider="tiingo"
-        ).to_df()
+        ticker_df = pdr.get_data_tiingo(
+            symbol, start=start_date, end=end_date, api_key=TIINGO_TOKEN
+        )
+        ticker_df.reset_index(inplace=True)
 
         ticker_df["Open"] = ticker_df["open"]
         ticker_df["High"] = ticker_df["high"]

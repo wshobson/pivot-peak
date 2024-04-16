@@ -1,0 +1,5 @@
+build-essential
+libsoup2.4-dev
+libjavascriptcoregtk-4.0-dev
+libgtk-3-dev
+libwebkit2gtk-4.0-dev

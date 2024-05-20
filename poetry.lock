@@ -25,17 +25,6 @@ dev = ["geopandas", "hatch", "ipython", "m2r", "mypy", "pandas-stubs", "pytest",
 doc = ["docutils", "jinja2", "myst-parser", "numpydoc", "pillow (>=9,<10)", "pydata-sphinx-theme (>=0.14.1)", "scipy", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinxext-altair"]
 
 [[package]]
-name = "appdirs"
-version = "1.4.4"
-description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
-optional = false
-python-versions = "*"
-files = [
-    {file = "appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
-    {file = "appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
-]
-
-[[package]]
 name = "asttokens"
 version = "2.4.1"
 description = "Annotate AST trees with source code positions"
@@ -940,7 +929,6 @@ files = [
     {file = "lxml-5.2.1-cp37-cp37m-musllinux_1_2_x86_64.whl", hash = "sha256:9e2addd2d1866fe112bc6f80117bcc6bc25191c5ed1bfbcf9f1386a884252ae8"},
     {file = "lxml-5.2.1-cp37-cp37m-win32.whl", hash = "sha256:f51969bac61441fd31f028d7b3b45962f3ecebf691a510495e5d2cd8c8092dbd"},
     {file = "lxml-5.2.1-cp37-cp37m-win_amd64.whl", hash = "sha256:b0b58fbfa1bf7367dde8a557994e3b1637294be6cf2169810375caf8571a085c"},
-    {file = "lxml-5.2.1-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:3e183c6e3298a2ed5af9d7a356ea823bccaab4ec2349dc9ed83999fd289d14d5"},
     {file = "lxml-5.2.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:804f74efe22b6a227306dd890eecc4f8c59ff25ca35f1f14e7482bbce96ef10b"},
     {file = "lxml-5.2.1-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:08802f0c56ed150cc6885ae0788a321b73505d2263ee56dad84d200cab11c07a"},
     {file = "lxml-5.2.1-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0f8c09ed18ecb4ebf23e02b8e7a22a05d6411911e6fabef3a36e4f371f4f2585"},
@@ -2267,17 +2255,16 @@ files = [
 
 [[package]]
 name = "yfinance"
-version = "0.2.37"
+version = "0.2.40"
 description = "Download market data from Yahoo! Finance API"
 optional = false
 python-versions = "*"
 files = [
-    {file = "yfinance-0.2.37-py2.py3-none-any.whl", hash = "sha256:3ac75fa1cd3496ee76b6df5d63d29679487ea9447123c5b935d1593240737a8f"},
-    {file = "yfinance-0.2.37.tar.gz", hash = "sha256:e5f78c9bd27bae7abfd0af9b7996620eaa9aba759d67f957296634d7d54f0cef"},
+    {file = "yfinance-0.2.40-py2.py3-none-any.whl", hash = "sha256:328176b5690de7aa192456a15b351c20ddde31b35d479f8179f5325bd340fc0b"},
+    {file = "yfinance-0.2.40.tar.gz", hash = "sha256:b053ac31229b5dc7f49a17a057f66aa7f688de2f5ddeb95c2455ec13cd89511a"},
 ]
 
 [package.dependencies]
-appdirs = ">=1.4.4"
 beautifulsoup4 = ">=4.11.1"
 frozendict = ">=2.3.4"
 html5lib = ">=1.1"
@@ -2286,6 +2273,7 @@ multitasking = ">=0.0.7"
 numpy = ">=1.16.5"
 pandas = ">=1.3.0"
 peewee = ">=3.16.2"
+platformdirs = ">=2.0.0"
 pytz = ">=2022.5"
 requests = ">=2.31"
 
@@ -2349,4 +2337,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "12a240f281b8bb7a88dc012e5dea222ed23e775d79a68b9ec07cd9c8652bdd1d"
+content-hash = "3392b23af9499d10192044c8632b4fa4de9cb3765c076db00ffb1669e9ae7332"

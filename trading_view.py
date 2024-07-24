@@ -25,9 +25,7 @@ def get_info_widget(
         "isTransparent": False,
     }
 
-    widget = (
-        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
-    )
+    widget = str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
 
     return (
         header + widget + footer,
@@ -78,9 +76,7 @@ def get_chart_widget(
         "locale": "en",
     }
 
-    widget = (
-        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
-    )
+    widget = str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
 
     return (
         header + widget + footer,
@@ -117,9 +113,7 @@ def get_fundamentals(
         "locale": "en",
     }
 
-    widget = (
-        str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
-    )
+    widget = str(widget).replace("True", "true").replace("False", "false").replace("'", '"')
 
     return (
         header + "\n" + widget + "\n" + footer,

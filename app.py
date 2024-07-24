@@ -23,9 +23,7 @@ def ticker_to_df(symbol, period):
         start = today - timedelta(days=int(period))
         start_date = start.strftime("%Y-%m-%d")
         end_date = today.strftime("%Y-%m-%d")
-        ticker_df = pdr.get_data_tiingo(
-            symbol, start=start_date, end=end_date, api_key=TIINGO_TOKEN
-        )
+        ticker_df = pdr.get_data_tiingo(symbol, start=start_date, end=end_date, api_key=TIINGO_TOKEN)
         ticker_df.reset_index(inplace=True)
 
         ticker_df["Open"] = ticker_df["open"]
@@ -45,9 +43,7 @@ def detect_trendlines(full_df):
     first_must_be_pivot = st.sidebar.checkbox("First point must be a pivot", value=True)
     last_must_be_pivot = st.sidebar.checkbox("Last point must be a pivot", value=True)
     all_must_be_pivots = st.sidebar.checkbox("All points must be pivots", value=True)
-    include_global_maxmin_pt = st.sidebar.checkbox(
-        "Include global max/min point", value=False
-    )
+    include_global_maxmin_pt = st.sidebar.checkbox("Include global max/min point", value=False)
 
     candlestick_data = ptl.CandlestickData(
         df=full_df,
@@ -135,33 +131,6 @@ def st_ui():
 
         stats = compute_stock_statistics(symbol, full_df)
         st.table(stats)
-
-    with st.sidebar:
-        button = """
-        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="fc4mDv55wG" data-color="#FFDD00" data-emoji="" data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-        """
-
-        html(button, height=70, width=260)
-
-        st.markdown(
-            """
-            <style>
-                iframe[width="260"] {
-                    position: fixed;
-                    bottom: 0;
-                    margin-bottom: 40px;
-                    -ms-zoom: 0.60;
-                    -moz-transform: scale(0.60);
-                    -moz-transform-origin: 0 0;
-                    -o-transform: scale(0.60);
-                    -o-transform-origin: 0 0;
-                    -webkit-transform: scale(0.60); 
-                    -webkit-transform-origin: 0 0;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
 
 
 if __name__ == "__main__":

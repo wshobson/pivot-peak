@@ -195,9 +195,7 @@ class TrendlineFigure:
 
 
 def _draw_bidirectional_ray(p, x, y, angle, color, width=2, dash="dashed"):
-    p.segment(
-        x0=x, x1=x, y0=0, y1=10000, line_color=color, line_dash=dash, line_width=width
-    )
+    p.segment(x0=x, x1=x, y0=0, y1=10000, line_color=color, line_dash=dash, line_width=width)
 
 
 def _highlight_pivots(p, pivots_indexes, col, candles_df):
@@ -249,9 +247,7 @@ def plot_graph_bokeh(results, symbol, period):
         x_range=(x_range_left, x_range_right),
     )
 
-    p.xaxis.major_label_overrides = {
-        i: date.strftime("%m/%d/%Y") for i, date in enumerate(candles_df["Date"])
-    }
+    p.xaxis.major_label_overrides = {i: date.strftime("%m/%d/%Y") for i, date in enumerate(candles_df["Date"])}
 
     p.xaxis.major_label_orientation = pi / 4
     p.grid.grid_line_alpha = 0.3
@@ -309,9 +305,7 @@ def plot_graph_bokeh(results, symbol, period):
 
 def plot_table_bokeh(results):
     if results["trend_type"] == structs.TrendlineTypes.BOTH:
-        all_results = pd.concat(
-            [results["support_trendlines"], results["resistance_trendlines"]]
-        )
+        all_results = pd.concat([results["support_trendlines"], results["resistance_trendlines"]])
     elif results["trend_type"] == structs.TrendlineTypes.SUPPORT:
         all_results = results["support_trendlines"]
     else:
@@ -358,9 +352,7 @@ def plot(
 
     # Get HTML content
     filepath = filedir + "/" + filename
-    html_content = file_html(
-        models=(trend_graph, trend_table), resources=CDN, title="pytrendline results"
-    )
+    html_content = file_html(models=(trend_graph, trend_table), resources=CDN, title="pytrendline results")
 
     # Hack in extra styles to HTML
     html_content = html_content.replace(

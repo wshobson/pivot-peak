@@ -23,32 +23,22 @@ class CandlestickData:
         # Validate dataframe nonempty and has at least 3 entries
         if df is None or len(df) < 3:
             raise Exception(
-                "CandlestickData constructor param df should have at least three entries, received :\n{}".format(
-                    df
-                )
+                "CandlestickData constructor param df should have at least three entries, received :\n{}".format(df)
             )
 
         # Validate time interval supplied is correct
         if time_interval not in VALID_TIME_INTERVALS:
             raise Exception(
-                "CandlestickData constructor param time_interval must be one of :\n{}".format(
-                    VALID_TIME_INTERVALS
-                )
+                "CandlestickData constructor param time_interval must be one of :\n{}".format(VALID_TIME_INTERVALS)
             )
 
         # Price column names provided exist and are in correct format
         for col_name in [open_col, high_col, low_col, close_col]:
             if col_name not in df.columns:
-                raise Exception(
-                    "CandlestickData constructor param df does not contain column '{}'".format(
-                        col_name
-                    )
-                )
+                raise Exception("CandlestickData constructor param df does not contain column '{}'".format(col_name))
             if df[col_name].dtypes != float:
                 raise Exception(
-                    "CandlestickData constructor param df requires that column '{}' is of type float".format(
-                        col_name
-                    )
+                    "CandlestickData constructor param df requires that column '{}' is of type float".format(col_name)
                 )
 
         # Datetime column provide exists and is of type datetime (or index is of type datetime if arg is None)
@@ -61,9 +51,7 @@ class CandlestickData:
         else:
             if datetime_col not in df.columns:
                 raise Exception(
-                    "CandlestickData constructor param df does not contain datetime_col '{}'".format(
-                        datetime_col
-                    )
+                    "CandlestickData constructor param df does not contain datetime_col '{}'".format(datetime_col)
                 )
             if not is_datetime(df[datetime_col]):
                 raise Exception(

@@ -16,7 +16,7 @@ pandas = "2.2.2"
 watchdog = "^4.0.0"
 black = "^24.4.0"
 ipython = "^8.26.0"
-setuptools = "^69.5.1"
+setuptools = "^74.1.2"
 pandas-datareader = "^0.10.0"
 yfinance = "^0.2.41"
 

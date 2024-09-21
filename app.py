@@ -25,10 +25,11 @@ def ticker_to_df(symbol, period):
         ticker_df = pdr.get_data_tiingo(symbol, start=start_date, end=end_date, api_key=TIINGO_TOKEN)
         ticker_df.reset_index(inplace=True)
 
-        ticker_df["Open"] = ticker_df["open"]
-        ticker_df["High"] = ticker_df["high"]
-        ticker_df["Low"] = ticker_df["low"]
-        ticker_df["Close"] = ticker_df["close"]
+        ticker_df["Open"] = ticker_df["adjOpen"]
+        ticker_df["High"] = ticker_df["adjHigh"]
+        ticker_df["Low"] = ticker_df["adjLow"]
+        ticker_df["Close"] = ticker_df["adjClose"]
+        ticker_df["Volume"] = ticker_df["adjVolume"]
         ticker_df["Symbol"] = symbol
         ticker_df["Date"] = ticker_df["date"]
 

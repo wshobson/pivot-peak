@@ -139,23 +139,25 @@ files = [
 
 [[package]]
 name = "bokeh"
-version = "2.4.3"
+version = "3.5.2"
 description = "Interactive plots and applications in the browser from Python"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 files = [
-    {file = "bokeh-2.4.3-py3-none-any.whl", hash = "sha256:104d2f0a4ca7774ee4b11e545aa34ff76bf3e2ad6de0d33944361981b65da420"},
-    {file = "bokeh-2.4.3.tar.gz", hash = "sha256:ef33801161af379665ab7a34684f2209861e3aefd5c803a21fbbb99d94874b03"},
+    {file = "bokeh-3.5.2-py3-none-any.whl", hash = "sha256:2be7bc1484a961c496294c8725c47f21129191cb6b3fa45f953cc97ae075bc4b"},
+    {file = "bokeh-3.5.2.tar.gz", hash = "sha256:03a54a67db677b8881834271c620a781b383ae593af5c3ea2149164754440d07"},
 ]
 
 [package.dependencies]
+contourpy = ">=1.2"
 Jinja2 = ">=2.9"
-numpy = ">=1.11.3"
+numpy = ">=1.16"
 packaging = ">=16.8"
+pandas = ">=1.2"
 pillow = ">=7.1.0"
 PyYAML = ">=3.10"
-tornado = ">=5.1"
-typing-extensions = ">=3.10.0"
+tornado = ">=6.2"
+xyzservices = ">=2021.09.1"
 
 [[package]]
 name = "cachetools"
@@ -2252,6 +2254,17 @@ files = [
 ]
 
 [[package]]
+name = "xyzservices"
+version = "2024.9.0"
+description = "Source of XYZ tiles providers"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "xyzservices-2024.9.0-py3-none-any.whl", hash = "sha256:776ae82b78d6e5ca63dd6a94abb054df8130887a4a308473b54a6bd364de8644"},
+    {file = "xyzservices-2024.9.0.tar.gz", hash = "sha256:68fb8353c9dbba4f1ff6c0f2e5e4e596bb9e1db7f94f4f7dfbcb26e25aa66fde"},
+]
+
+[[package]]
 name = "yfinance"
 version = "0.2.41"
 description = "Download market data from Yahoo! Finance API"
@@ -2335,4 +2348,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "3c93749f41e376ae1b93b44e00d8843ba2ce3e9ba43d25cf9a79ad1500af1ddf"
+content-hash = "778717847bdd417fbf24232cafdd501d1187e65c2dbdf01cd47d8ba2b417eadf"

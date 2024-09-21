@@ -11,14 +11,15 @@ mplfinance = "^0.12.10b0"
 pytrendline = "^1.0.1"
 quantstats = "^0.0.62"
 streamlit = "^1.37.1"
-bokeh = "3.5.0"
-pandas = "2.2.2"
+bokeh = "2.4.3"
+pandas = "1.5.3"
 watchdog = "^4.0.0"
 black = "^24.4.0"
 ipython = "^8.26.0"
 setuptools = "^69.5.1"
 pandas-datareader = "^0.10.0"
 yfinance = "^0.2.41"
+numpy = "1.23.2"
 
 
 [build-system]

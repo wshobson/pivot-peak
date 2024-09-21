@@ -8,7 +8,6 @@ import streamlit as st
 import pandas_datareader as pdr
 
 from PIL import Image
-from streamlit.components.v1 import html
 
 from plot import plot_graph_bokeh
 

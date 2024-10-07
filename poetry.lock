@@ -2253,13 +2253,13 @@ files = [
 
 [[package]]
 name = "yfinance"
-version = "0.2.41"
+version = "0.2.44"
 description = "Download market data from Yahoo! Finance API"
 optional = false
 python-versions = "*"
 files = [
-    {file = "yfinance-0.2.41-py2.py3-none-any.whl", hash = "sha256:2ed7b453cb8568773eb2dbb4d87cc37ff02e5d133f7723ec3e219ab0b86b56d8"},
-    {file = "yfinance-0.2.41.tar.gz", hash = "sha256:f94409a1ed4d596b9da8d2dbb498faaabfcf593d5870e1412e17669a212bb345"},
+    {file = "yfinance-0.2.44-py2.py3-none-any.whl", hash = "sha256:fdc18791662f286539f7a08dccd7e8191b1ca509814f7b0faac264623bebe8a8"},
+    {file = "yfinance-0.2.44.tar.gz", hash = "sha256:532ad1644ee9cf4024ec0d9cade0cc073664ec0d140cc6c22a0cce8a9118b523"},
 ]
 
 [package.dependencies]
@@ -2335,4 +2335,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "3c93749f41e376ae1b93b44e00d8843ba2ce3e9ba43d25cf9a79ad1500af1ddf"
+content-hash = "09bd6f276b8fe4c2dd7c41f10ab9cc522884c41e4ce4abd18ee4942c13da9ad1"
